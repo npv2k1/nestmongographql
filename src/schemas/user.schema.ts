@@ -7,8 +7,8 @@ import { Document } from 'mongoose';
 @Schema()
 @ObjectType()
 export class User {
-  // @Field(() => String)
-  // id: string;
+  @Field(() => String)
+  id: string;
 
   @Prop({ type: String, trim: true, index: true, required: true, unique: true })
   @Field(() => String)

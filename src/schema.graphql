@@ -11,6 +11,11 @@ type Auth {
   user: User!
 }
 
+input CreatePlaygroundInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 """
 A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
 """
@@ -21,16 +26,29 @@ input LoginInput {
   password: String!
 }
 
+type Mess {
+  message: String!
+}
+
 type Mutation {
+  createPlayground(createPlaygroundInput: CreatePlaygroundInput!): Playground!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
+  removePlayground(id: Int!): Playground!
   signup(data: SignupInput!): Auth!
+  updatePlayground(updatePlaygroundInput: UpdatePlaygroundInput!): Playground!
+}
+
+type Playground {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 type Query {
   hello(name: String!): String!
   helloWorld: String!
   me: User!
+  playground(id: Int!): Playground!
 }
 
 input SignupInput {
@@ -38,6 +56,11 @@ input SignupInput {
   firstname: String
   lastname: String
   password: String!
+}
+
+type Subscription {
+  UserLogin: Auth!
+  helloSub: Mess!
 }
 
 type Token {
@@ -48,9 +71,16 @@ type Token {
   refreshToken: JWT!
 }
 
+input UpdatePlaygroundInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
 type User {
   email: String!
   firstname: String!
+  id: String!
   lastname: String!
   role: String!
 }

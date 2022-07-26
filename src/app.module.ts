@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { GqlConfigService } from './common/graphql/gql-config.service';
+import { PlaygroundModule } from './modules/playground/playground.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { GqlConfigService } from './common/graphql/gql-config.service';
 
     AuthModule,
     UsersModule,
+    PlaygroundModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

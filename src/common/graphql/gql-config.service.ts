@@ -18,6 +18,10 @@ export class GqlConfigService implements GqlOptionsFactory {
       },
       // subscription
       installSubscriptionHandlers: true,
+      subscriptions: {
+        'graphql-ws': true,
+        'subscriptions-transport-ws': true,
+      },
       debug: graphqlConfig.debug,
       playground: graphqlConfig.playgroundEnabled,
       context: ({ req }) => ({ req }),
