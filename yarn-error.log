@@ -1,0 +1,137 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  D:\env\cmder\vendor\git-for-windows\cmd;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\libnvvp;C:\Program Files\Microsoft\jdk-11.0.13.8-hotspot\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\bin;D:\env\anaconda;D:\env\anaconda\Library\mingw-w64\bin;D:\env\anaconda\Library\usr\bin;D:\env\anaconda\Library\bin;D:\env\anaconda\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\Users\nguyen\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\msys64\mingw64\bin;D:\env\ffmpeg;D:\env\go\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2022.2.0\;D:\env\PHP;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\nguyen\.cargo\bin;C:\Users\nguyen\AppData\Local\Microsoft\WindowsApps;C:\Users\nguyen\AppData\Local\GitHubDesktop\bin;C:\Users\nguyen\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\nguyen\.dotnet\tools;C:\Program Files (x86)\GitHub CLI\;D:\env\me\bin;C:\Users\nguyen\.deta\bin;C:\Program Files\Azure Data Studio\bin;C:\Users\nguyen\AppData\Local\Android\Sdk\platform-tools;D:\env\protoc-21.1-win64\bin;D:\vscode\vscode-tool\bin;C:\Users\nguyen\AppData\Local\gitkraken\bin;C:\Users\nguyen\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\nguyen\AppData\Local\.bvm;D:\env\cmder\vendor\git-for-windows\mingw64\bin;D:\env\cmder\vendor\git-for-windows\usr\bin;D:\env\cmder\vendor\bin;D:\env\cmder
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.13.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\Lab\nestmongographql\node_modules\prisma\node_modules\@prisma\engines\migration-engine-windows.exe'
+
+npm manifest: 
+  {
+    "name": "nestjs-prisma-client-starter",
+    "version": "0.0.1",
+    "description": "NestJS Prisma Client Starter Project",
+    "author": "Marc Stammerjohann",
+    "license": "MIT",
+    "keywords": [
+      "nestjs",
+      "prisma",
+      "prisma client",
+      "typescript",
+      "passport",
+      "graphql"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/fivethree-team/nestjs-prisma-client-example.git"
+    },
+    "bugs": {
+      "url": "https://github.com/fivethree-team/nestjs-prisma-client-example/issues"
+    },
+    "scripts": {
+      "prebuild": "rimraf dist",
+      "build": "nest build",
+      "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+      "start": "nest start",
+      "start:dev": "nest start --watch",
+      "start:debug": "nest start --debug --watch",
+      "start:prod": "node dist/main",
+      "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+      "test": "jest",
+      "test:watch": "jest --watch",
+      "test:cov": "jest --coverage",
+      "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+      "test:e2e": "jest --config ./test/jest-e2e.json",
+      "docker:migrate": "docker-compose -f docker-compose.migrate.yml up -d",
+      "docker:db": "docker-compose -f docker-compose.db.yml up -d",
+      "docker:seed": "docker exec -it nest-api npm run seed",
+      "docker": "docker-compose up -d",
+      "docker:build": "docker-compose build"
+    },
+    "dependencies": {
+      "@nestjs/apollo": "10.0.19",
+      "@nestjs/common": "9.0.5",
+      "@nestjs/config": "2.2.0",
+      "@nestjs/core": "9.0.5",
+      "@nestjs/graphql": "10.0.20",
+      "@nestjs/jwt": "9.0.0",
+      "@nestjs/mongoose": "^9.2.0",
+      "@nestjs/passport": "^9.0.0",
+      "@nestjs/platform-express": "9.0.5",
+      "@nestjs/swagger": "6.0.4",
+      "apollo-server-express": "3.10.0",
+      "bcrypt": "5.0.1",
+      "class-transformer": "0.5.1",
+      "class-validator": "0.13.2",
+      "graphql": "16.5.0",
+      "graphql-scalars": "1.17.0",
+      "graphql-subscriptions": "2.0.0",
+      "mongoose": "^6.4.7",
+      "passport": "^0.6.0",
+      "passport-jwt": "4.0.0",
+      "passport-local": "^1.0.0",
+      "reflect-metadata": "0.1.13",
+      "rimraf": "3.0.2",
+      "rxjs": "7.5.6"
+    },
+    "devDependencies": {
+      "@nestjs/cli": "9.0.0",
+      "@nestjs/schematics": "9.0.1",
+      "@nestjs/testing": "9.0.5",
+      "@types/bcrypt": "5.0.0",
+      "@types/chance": "1.1.3",
+      "@types/express": "4.17.13",
+      "@types/jest": "28.1.6",
+      "@types/node": "^18.0.3",
+      "@types/passport-local": "^1.0.34",
+      "@types/supertest": "2.0.12",
+      "@typescript-eslint/eslint-plugin": "5.30.7",
+      "@typescript-eslint/parser": "5.30.7",
+      "chance": "1.1.8",
+      "eslint": "8.20.0",
+      "eslint-config-prettier": "8.5.0",
+      "eslint-plugin-prettier": "4.2.1",
+      "jest": "28.1.3",
+      "prettier": "2.7.1",
+      "supertest": "6.2.4",
+      "ts-jest": "28.0.7",
+      "ts-loader": "9.3.1",
+      "ts-morph": "^15.1.0",
+      "ts-node": "10.9.1",
+      "tsconfig-paths": "4.0.0",
+      "typescript": "4.7.4"
+    },
+    "jest": {
+      "moduleFileExtensions": [
+        "js",
+        "json",
+        "ts"
+      ],
+      "rootDir": "src",
+      "testRegex": ".*\\.spec\\.ts$",
+      "transform": {
+        "^.+\\.(t|j)s$": "ts-jest"
+      },
+      "collectCoverageFrom": [
+        "**/*.(t|j)s"
+      ],
+      "coverageDirectory": "../coverage",
+      "testEnvironment": "node"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
