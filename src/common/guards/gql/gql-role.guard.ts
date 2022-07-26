@@ -1,11 +1,11 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { GqlAuthGuard } from 'src/modules/auth/gql-auth.guard';
+import { GqlAuthGuard } from 'src/common/guards/gql/gql-jwt.guard';
 import { UserRole } from 'src/modules/users/enums/role.enum';
 
 @Injectable()
-export class RolesGuard extends GqlAuthGuard {
+export class GqlRolesGuard extends GqlAuthGuard {
   constructor(private reflector: Reflector) {
     super();
   }

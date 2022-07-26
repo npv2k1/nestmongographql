@@ -1,16 +1,18 @@
+import { RestRolesGuard } from './../../common/guards/rest/res-role.guard';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { Roles } from 'src/common/decorators/roles.decorator';
-import { UserEntity } from 'src/common/decorators/user.decorator';
-import { RolesGuard } from 'src/common/guards/role.guard';
+import { ReqUser } from 'src/common/decorators/user.decorator';
 import { User } from 'src/schemas/user.schema';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
-@UseGuards(RolesGuard)
+@ApiBearerAuth()
+@UseGuards(RestRolesGuard)
 export class UsersController {
   @Get('me')
   @Roles('USER')
-  async me(@UserEntity() user: User): Promise<User> {
-    console.log('me user', user);
+  async me(@ReqUser() user: User): Promise<User> {
+    console.log('rest me user', user);
     return user;
   }
 }

@@ -1,9 +1,10 @@
+import { RestAuthGuard } from './../../common/guards/rest/rest-jwt.guard';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { PasswordService } from './password.service';
-import { GqlAuthGuard } from './gql-auth.guard';
+import { GqlAuthGuard } from '../../common/guards/gql/gql-jwt.guard';
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
 import { JwtStrategy } from './jwt.strategy';
@@ -33,8 +34,9 @@ import { User, UserSchema } from 'src/schemas/user.schema';
     AuthResolver,
     JwtStrategy,
     GqlAuthGuard,
+    RestAuthGuard,
     PasswordService,
   ],
-  exports: [GqlAuthGuard],
+  exports: [GqlAuthGuard, RestAuthGuard],
 })
 export class AuthModule {}

@@ -1,14 +1,13 @@
-import { RolesGuard } from './../../common/guards/role.guard';
 import { UseGuards } from '@nestjs/common';
 import { Query, Resolver } from '@nestjs/graphql';
 import { UserEntity } from 'src/common/decorators/user.decorator';
-import { GqlAuthGuard } from 'src/modules/auth/gql-auth.guard';
 
-import { User } from 'src/schemas/user.schema';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { User } from 'src/schemas/user.schema';
+import { GqlRolesGuard } from 'src/common/guards/gql/gql-role.guard';
 
 @Resolver(() => User)
-@UseGuards(RolesGuard)
+@UseGuards(GqlRolesGuard)
 export class UsersResolver {
   @Query(() => User)
   @Roles('USER')
