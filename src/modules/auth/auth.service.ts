@@ -1,59 +1,56 @@
-import { PrismaService } from 'nestjs-prisma';
-import { Prisma, User } from '@prisma/client';
 import {
-  Injectable,
-  NotFoundException,
   BadRequestException,
   ConflictException,
+  Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PasswordService } from './password.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { SecurityConfig } from 'src/common/configs/config.interface';
+import { User } from 'src/schemas/user.schema';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './models/token.model';
-import { SecurityConfig } from 'src/common/configs/config.interface';
+import { PasswordService } from './password.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    @InjectModel(User.name)
+    private readonly UserModel: Model<User>
   ) {}
 
   async createUser(payload: SignupInput): Promise<Token> {
     const hashedPassword = await this.passwordService.hashPassword(
       payload.password
     );
+    console.log('signup input', payload);
 
     try {
-      const user = await this.prisma.user.create({
-        data: {
-          ...payload,
-          password: hashedPassword,
-          role: 'USER',
-        },
+      const user = await this.UserModel.create({
+        ...payload,
+        password: hashedPassword,
+        role: 'USER',
       });
+
+      console.log('user', user);
 
       return this.generateTokens({
         userId: user.id,
       });
     } catch (e) {
-      if (
-        e instanceof Prisma.PrismaClientKnownRequestError &&
-        e.code === 'P2002'
-      ) {
-        throw new ConflictException(`Email ${payload.email} already used.`);
-      } else {
-        throw new Error(e);
-      }
+      console.log('error', e);
+      throw new ConflictException(`Email ${payload.email} already used.`);
     }
   }
 
   async login(email: string, password: string): Promise<Token> {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    const user = await this.UserModel.findOne({ email });
 
     if (!user) {
       throw new NotFoundException(`No user found for email: ${email}`);
@@ -68,18 +65,23 @@ export class AuthService {
       throw new BadRequestException('Invalid password');
     }
 
-    return this.generateTokens({
+    const token = this.generateTokens({
       userId: user.id,
     });
+    console.log('user sss', user, user.id);
+    return {
+      ...token,
+    };
   }
 
-  validateUser(userId: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id: userId } });
+  async validateUser(userId: string): Promise<User> {
+    console.log('validate user', userId);
+    return this.UserModel.findOne({ _id: userId });
   }
 
-  getUserFromToken(token: string): Promise<User> {
+  async getUserFromToken(token: string): Promise<User> {
     const id = this.jwtService.decode(token)['userId'];
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.UserModel.findById(id);
   }
 
   generateTokens(payload: { userId: string }): Token {

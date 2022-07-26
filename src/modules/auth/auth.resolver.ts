@@ -28,15 +28,7 @@ export class AuthResolver {
 
   @Mutation(() => Auth)
   async login(@Args('data') { email, password }: LoginInput) {
-    const { accessToken, refreshToken } = await this.auth.login(
-      email.toLowerCase(),
-      password
-    );
-
-    return {
-      accessToken,
-      refreshToken,
-    };
+    return await this.auth.login(email.toLowerCase(), password);
   }
 
   @Mutation(() => Token)
@@ -44,6 +36,7 @@ export class AuthResolver {
     return this.auth.refreshToken(token);
   }
 
+  /* A resolver that is used to resolve the user field in the Auth model. */
   @ResolveField('user')
   async user(@Parent() auth: Auth) {
     return await this.auth.getUserFromToken(auth.accessToken);

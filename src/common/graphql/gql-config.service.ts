@@ -1,4 +1,4 @@
-import { GraphqlConfig } from './common/configs/config.interface';
+import { GraphqlConfig } from '../configs/config.interface';
 import { ConfigService } from '@nestjs/config';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
