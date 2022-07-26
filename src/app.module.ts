@@ -11,6 +11,7 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { GqlConfigService } from './common/graphql/gql-config.service';
 import { PlaygroundModule } from './modules/playground/playground.module';
+import { TodoModule } from './modules/todo/todo.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PlaygroundModule } from './modules/playground/playground.module';
     AuthModule,
     UsersModule,
     PlaygroundModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
