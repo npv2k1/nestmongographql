@@ -23,6 +23,7 @@ async function bootstrap() {
   // Swagger Api
   if (swaggerConfig.enabled) {
     const options = new DocumentBuilder()
+      .addBearerAuth()
       .setTitle(swaggerConfig.title || 'Nestjs')
       .setDescription(swaggerConfig.description || 'The nestjs API description')
       .setVersion(swaggerConfig.version || '1.0')
