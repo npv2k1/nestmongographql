@@ -1,3 +1,5 @@
+import { GqlAuthGuard } from 'src/common/guards/gql/gql-jwt.guard';
+import { GqlRolesGuard } from 'src/common/guards/gql/gql-role.guard';
 import {
   Resolver,
   Mutation,
@@ -12,8 +14,11 @@ import { Token } from './models/token.model';
 import { LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
-import { PubSub } from 'graphql-subscriptions';
-const pubSub = new PubSub();
+import { UseGuards } from '@nestjs/common';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { pubSub } from 'src/common/graphql/pubsub.service';
+// import { PubSub } from 'graphql-subscriptions';
+// const pubSub = new PubSub();
 @Resolver(() => Auth)
 export class AuthResolver {
   constructor(private readonly auth: AuthService) {}
@@ -47,6 +52,8 @@ export class AuthResolver {
   }
 
   @Subscription(() => Auth)
+  // @UseGuards(GqlAuthGuard)
+  // @Roles('ADMIN')
   UserLogin() {
     console.log('have to subscribe');
     return pubSub.asyncIterator('login');
