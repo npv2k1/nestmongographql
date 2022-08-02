@@ -1,3 +1,4 @@
+import { Module } from '@nestjs/common';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import Redis from 'ioredis';
 

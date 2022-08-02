@@ -18,6 +18,10 @@ import { UserEntity } from 'src/common/decorators/user.decorator';
 import { User } from 'src/schemas/user.schema';
 import { pubSub } from 'src/common/graphql/pubsub.service';
 
+const TOPICS = {
+  createTodo: 'todoAdded',
+};
+
 @Resolver(() => Todo)
 export class TodoResolver {
   constructor(private readonly todoService: TodoService) {}
@@ -30,7 +34,7 @@ export class TodoResolver {
   ) {
     const res = await this.todoService.create(createTodoInput, user);
     console.log('add todo', res);
-    pubSub.publish('todo', { addTodo: res });
+    pubSub.publish('todo', { [TOPICS.createTodo]: res });
     return res;
   }
 
@@ -59,15 +63,8 @@ export class TodoResolver {
 
   @Subscription(() => Todo)
   @UseGuards(GqlAuthGuard)
-  addTodo(@UserEntity() user: User) {
+  [TOPICS.createTodo](@UserEntity() user: User) {
     console.log('have to subscribe', user);
     return pubSub.asyncIterator('todo');
   }
-  // @ResolveField('user')
-  // user(@Parent() todo: Todo) {
-  //   console.log(todo);
-  //   return {
-  //     id: '121',
-  //   };
-  // }
 }

@@ -65,7 +65,7 @@ input SignupInput {
 
 type Subscription {
   UserLogin: Auth!
-  addTodo: Todo!
+  todoAdded: Todo!
 }
 
 type Todo {

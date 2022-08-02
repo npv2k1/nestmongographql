@@ -33,3 +33,12 @@ export class User {
 
 export const UserDocument = User && Document;
 export const UserSchema = SchemaFactory.createForClass(User);
+// Duplicate the ID field.
+UserSchema.virtual('id').get(function () {
+  return this._id;
+});
+
+// Ensure virtual fields are serialised.
+UserSchema.set('toJSON', {
+  virtuals: true,
+});
