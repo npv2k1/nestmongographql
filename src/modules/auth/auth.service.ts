@@ -24,6 +24,9 @@ export class AuthService {
     @InjectModel(User.name)
     private readonly UserModel: Model<User>
   ) {}
+  getJwtPayLoad(authToken: string): any {
+    return this.jwtService.decode(authToken);
+  }
 
   async createUser(payload: SignupInput): Promise<Token> {
     const hashedPassword = await this.passwordService.hashPassword(
@@ -77,6 +80,18 @@ export class AuthService {
   async validateUser(userId: string): Promise<User> {
     console.log('validate user', userId);
     return this.UserModel.findOne({ _id: userId });
+  }
+
+  async validateAccessToken(token: string) {
+    try {
+      const { userId } = this.jwtService.verify(token, {
+        secret: this.configService.get('JWT_ACCESS_SECRET'),
+      });
+
+      return this.UserModel.findById(userId);
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 
   async getUserFromToken(token: string): Promise<User> {

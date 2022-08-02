@@ -32,7 +32,7 @@ async function bootstrap() {
 
     SwaggerModule.setup(swaggerConfig.path || 'api', app, document);
   }
-
+  console.log('ConfigModule', process.env.PUBSUB_PROVIDER);
   // Cors
   if (corsConfig.enabled) {
     app.enableCors();

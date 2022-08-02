@@ -15,11 +15,11 @@ export class User {
   email: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   firstname?: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   lastname?: string;
 
   @Prop()

@@ -6,11 +6,13 @@ import { User } from './user.schema';
 
 // Schema for mongodb and graphql
 
+/* We're using the @ObjectType() decorator to tell NestJS that this class is a GraphQL object type.
+We're using the @Field() decorator to tell NestJS that this property is a GraphQL field */
 @Schema()
 @ObjectType()
 export class Todo {
   @Field(() => String)
-  id: string;
+  id?: string;
 
   @Prop({ type: String })
   @Field(() => String)

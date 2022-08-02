@@ -17,6 +17,8 @@ import { RefreshTokenInput } from './dto/refresh-token.input';
 import { UseGuards } from '@nestjs/common';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { pubSub } from 'src/common/graphql/pubsub.service';
+import { User } from 'src/schemas/user.schema';
+import { UserEntity } from 'src/common/decorators/user.decorator';
 // import { PubSub } from 'graphql-subscriptions';
 // const pubSub = new PubSub();
 @Resolver(() => Auth)
@@ -36,7 +38,7 @@ export class AuthResolver {
   @Mutation(() => Auth)
   async login(@Args('data') { email, password }: LoginInput) {
     const dt = await this.auth.login(email.toLowerCase(), password);
-    pubSub.publish('login', { UserLogin: dt }); // Tên biến payload trùng với tên hàm subscribtion {tenham: payload}
+    pubSub.publish('loginU', { UserLogin: dt }); // Tên biến payload trùng với tên hàm subscribtion {tenham: payload}
     return await this.auth.login(email.toLowerCase(), password);
   }
 
@@ -51,11 +53,11 @@ export class AuthResolver {
     return await this.auth.getUserFromToken(auth.accessToken);
   }
 
-  @Subscription(() => Auth)
-  // @UseGuards(GqlAuthGuard)
   // @Roles('ADMIN')
-  UserLogin() {
-    console.log('have to subscribe');
-    return pubSub.asyncIterator('login');
+  @Subscription(() => Auth)
+  @UseGuards(GqlAuthGuard)
+  UserLogin(@UserEntity() user: User) {
+    console.log('have to subscribe', user);
+    return pubSub.asyncIterator('loginU');
   }
 }

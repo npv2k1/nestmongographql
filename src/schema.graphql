@@ -32,10 +32,6 @@ input LoginInput {
   password: String!
 }
 
-type Mess {
-  message: String!
-}
-
 type Mutation {
   createPlayground(createPlaygroundInput: CreatePlaygroundInput!): Playground!
   createTodo(createTodoInput: CreateTodoInput!): Todo!
@@ -54,8 +50,6 @@ type Playground {
 }
 
 type Query {
-  hello(name: String!): String!
-  helloWorld: String!
   me: User!
   playground(id: Int!): Playground!
   todo(id: String!): Todo!
@@ -71,7 +65,7 @@ input SignupInput {
 
 type Subscription {
   UserLogin: Auth!
-  helloSub: Mess!
+  addTodo: Todo!
 }
 
 type Todo {
@@ -105,8 +99,8 @@ input UpdateTodoInput {
 
 type User {
   email: String!
-  firstname: String!
+  firstname: String
   id: String!
-  lastname: String!
+  lastname: String
   role: String!
 }

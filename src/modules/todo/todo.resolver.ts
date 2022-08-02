@@ -7,6 +7,7 @@ import {
   Int,
   ResolveField,
   Parent,
+  Subscription,
 } from '@nestjs/graphql';
 import { TodoService } from './todo.service';
 import { CreateTodoInput } from './dto/create-todo.input';
@@ -15,6 +16,7 @@ import { Todo } from 'src/schemas/todo.schema';
 import { UseGuards } from '@nestjs/common';
 import { UserEntity } from 'src/common/decorators/user.decorator';
 import { User } from 'src/schemas/user.schema';
+import { pubSub } from 'src/common/graphql/pubsub.service';
 
 @Resolver(() => Todo)
 export class TodoResolver {
@@ -22,16 +24,20 @@ export class TodoResolver {
 
   @Mutation(() => Todo)
   @UseGuards(GqlAuthGuard)
-  createTodo(
+  async createTodo(
     @UserEntity() user: User,
     @Args('createTodoInput') createTodoInput: CreateTodoInput
   ) {
-    return this.todoService.create(createTodoInput, user);
+    const res = await this.todoService.create(createTodoInput, user);
+    console.log('add todo', res);
+    pubSub.publish('todo', { addTodo: res });
+    return res;
   }
 
   @Query(() => [Todo], { name: 'todos' })
-  findAll() {
-    return this.todoService.findAll();
+  @UseGuards(GqlAuthGuard)
+  findAll(@UserEntity() user: User) {
+    return this.todoService.findAll(user.id);
   }
 
   @Query(() => Todo, { name: 'todo' })
@@ -41,7 +47,9 @@ export class TodoResolver {
 
   @Mutation(() => Todo)
   updateTodo(@Args('updateTodoInput') updateTodoInput: UpdateTodoInput) {
-    return this.todoService.update(updateTodoInput.id, updateTodoInput);
+    const res = this.todoService.update(updateTodoInput.id, updateTodoInput);
+    pubSub.publish('todo', { addTodo: res });
+    return res;
   }
 
   @Mutation(() => Todo)
@@ -49,6 +57,12 @@ export class TodoResolver {
     return this.todoService.remove(id);
   }
 
+  @Subscription(() => Todo)
+  @UseGuards(GqlAuthGuard)
+  addTodo(@UserEntity() user: User) {
+    console.log('have to subscribe', user);
+    return pubSub.asyncIterator('todo');
+  }
   // @ResolveField('user')
   // user(@Parent() todo: Todo) {
   //   console.log(todo);

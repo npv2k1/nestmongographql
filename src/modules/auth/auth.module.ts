@@ -37,6 +37,6 @@ import { User, UserSchema } from 'src/schemas/user.schema';
     RestAuthGuard,
     PasswordService,
   ],
-  exports: [GqlAuthGuard, RestAuthGuard],
+  exports: [GqlAuthGuard, RestAuthGuard, AuthService],
 })
 export class AuthModule {}

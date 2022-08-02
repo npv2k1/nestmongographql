@@ -17,8 +17,8 @@ export class TodoService {
     return this.TodoModel.create({ ...createTodoInput, user: user.id });
   }
 
-  async findAll() {
-    const list = await this.TodoModel.find().populate('user');
+  async findAll(userId: string) {
+    const list = await this.TodoModel.find({ user: userId }).populate('user');
     console.log('list', list);
     return list;
   }

@@ -6,6 +6,8 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export class GqlAuthGuard extends AuthGuard('jwt') {
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
+    // console.log('Guard context>>>', context);
+    // console.log('Guard Header >>>>', ctx.getContext().req);
     return ctx.getContext().req;
   }
 }
