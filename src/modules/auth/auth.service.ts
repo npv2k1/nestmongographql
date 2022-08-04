@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SecurityConfig } from 'src/common/configs/config.interface';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './models/token.model';
 import { PasswordService } from './password.service';

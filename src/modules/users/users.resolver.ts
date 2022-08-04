@@ -3,7 +3,7 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { UserEntity } from 'src/common/decorators/user.decorator';
 
 import { Roles } from 'src/common/decorators/roles.decorator';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { GqlRolesGuard } from 'src/common/guards/gql/gql-role.guard';
 
 @Resolver(() => User)

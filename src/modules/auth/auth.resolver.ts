@@ -17,7 +17,7 @@ import { RefreshTokenInput } from './dto/refresh-token.input';
 import { UseGuards } from '@nestjs/common';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { pubSub } from 'src/common/graphql/pubsub.service';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { UserEntity } from 'src/common/decorators/user.decorator';
 // import { PubSub } from 'graphql-subscriptions';
 // const pubSub = new PubSub();

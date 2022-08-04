@@ -11,11 +11,6 @@ type Auth {
   user: User!
 }
 
-input CreatePlaygroundInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateTodoInput {
   content: String
   done: Boolean!
@@ -33,27 +28,30 @@ input LoginInput {
 }
 
 type Mutation {
-  createPlayground(createPlaygroundInput: CreatePlaygroundInput!): Playground!
   createTodo(createTodoInput: CreateTodoInput!): Todo!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
-  removePlayground(id: Int!): Playground!
   removeTodo(id: String!): Todo!
   signup(data: SignupInput!): Auth!
-  updatePlayground(updatePlaygroundInput: UpdatePlaygroundInput!): Playground!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
 }
 
-type Playground {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 type Query {
   me: User!
-  playground(id: Int!): Playground!
   todo(id: String!): Todo!
-  todos: [Todo!]!
+  todos: TodoPagination!
 }
 
 input SignupInput {
@@ -71,9 +69,14 @@ type Subscription {
 type Todo {
   content: String!
   done: Boolean!
-  id: String!
+  id: ID!
   title: String!
   user: User!
+}
+
+type TodoPagination {
+  docs: [Todo!]!
+  pageInfo: PageInfo!
 }
 
 type Token {
@@ -82,12 +85,6 @@ type Token {
 
   """JWT refresh token"""
   refreshToken: JWT!
-}
-
-input UpdatePlaygroundInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input UpdateTodoInput {

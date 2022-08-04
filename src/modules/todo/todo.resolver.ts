@@ -12,10 +12,10 @@ import {
 import { TodoService } from './todo.service';
 import { CreateTodoInput } from './dto/create-todo.input';
 import { UpdateTodoInput } from './dto/update-todo.input';
-import { Todo } from 'src/schemas/todo.schema';
+import { Todo, TodoPagination } from 'src/modules/todo/schemas/todo.schema';
 import { UseGuards } from '@nestjs/common';
 import { UserEntity } from 'src/common/decorators/user.decorator';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { pubSub } from 'src/common/graphql/pubsub.service';
 
 const TOPICS = {
@@ -38,7 +38,7 @@ export class TodoResolver {
     return res;
   }
 
-  @Query(() => [Todo], { name: 'todos' })
+  @Query(() => TodoPagination, { name: 'todos' })
   @UseGuards(GqlAuthGuard)
   findAll(@UserEntity() user: User) {
     return this.todoService.findAll(user.id);

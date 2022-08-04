@@ -6,11 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import config from 'src/common/configs/config';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { UsersModule } from 'src/modules/users/users.module';
-import { GraphqlConfig } from './common/configs/config.interface';
-
 import { GqlConfigService } from './common/graphql/gql-config.service';
 import { AuthService } from './modules/auth/auth.service';
-import { PlaygroundModule } from './modules/playground/playground.module';
 import { TodoModule } from './modules/todo/todo.module';
 
 @Module({
@@ -21,17 +18,14 @@ import { TodoModule } from './modules/todo/todo.module';
       envFilePath: '.env',
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
-
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [AuthModule],
       useClass: GqlConfigService,
       driver: ApolloDriver,
       inject: [ConfigService, AuthService],
     }),
-
     AuthModule,
     UsersModule,
-    PlaygroundModule,
     TodoModule,
   ],
   controllers: [],

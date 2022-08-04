@@ -3,7 +3,7 @@ import { PasswordService } from 'src/modules/auth/password.service';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { Model } from 'mongoose';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()

@@ -2,7 +2,7 @@ import { RestRolesGuard } from './../../common/guards/rest/res-role.guard';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { ReqUser } from 'src/common/decorators/user.decorator';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/modules/users/schemas/user.schema';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
