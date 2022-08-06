@@ -19,7 +19,7 @@ describe('AppResolver (e2e)', () => {
   });
 
   it('helloWorld (Query)', () => {
-    // TODO assert return value
+    //TODO assert return value
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -28,7 +28,7 @@ describe('AppResolver (e2e)', () => {
       .expect(200);
   });
   it('hello (Query)', () => {
-    // TODO assert return value
+    //! assert return value
     const name = chance.name();
     return request(app.getHttpServer())
       .post('/graphql')

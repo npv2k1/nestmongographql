@@ -9,6 +9,7 @@ import { UsersModule } from 'src/modules/users/users.module';
 import { GqlConfigService } from './common/graphql/gql-config.service';
 import { AuthService } from './modules/auth/auth.service';
 import { TodoModule } from './modules/todo/todo.module';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TodoModule } from './modules/todo/todo.module';
     AuthModule,
     UsersModule,
     TodoModule,
+    ChatModule,
   ],
   controllers: [],
   providers: [],
